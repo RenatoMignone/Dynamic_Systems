@@ -6,12 +6,12 @@ syms s;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %definizione del numeratore
-num = [1 1];
+num = [3];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %definizione del denominatore come vettore
 %den = [1 0 1];
-den = [1 2 2 0];
+den = [1 2 0];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %definizione lasso di tempo
@@ -22,13 +22,13 @@ t=0:tfin/1000:tfin; % da t = 0, procedendo di tfin/1000 fino a 40
 %definizione funzione di trasferimento con funzione tf
 FDT = tf(num,den);
 %definizione funzione di trasferimento con la variabile complessa
-FDT2 = (s+1)/(s^3+2*s^2+2*s);
+FDT2 = (3)/(s^2+2*s);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %definisco il numero di righe e di colonne per la griglia del subplot per
 %costruire un grafico con più grafici
-righe = 1;colonne =6;
+righe = 2;colonne =3;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %calcolo dell'antitrasformata di laplace di una funzione di trasferimento
@@ -44,7 +44,7 @@ figure;
 % Grafico dell'antitrasformata nel tempo
 subplot(righe, colonne, 5);
 plot(t, risultato_tempo, 'LineWidth', 2);
-title('Antitrasformata nel tempo');
+title('Antitrasformata nel tempo di FDT2');
 xlabel('Tempo');
 ylabel('Amplitude');
 grid on;
@@ -52,7 +52,7 @@ grid on;
 % Grafico della risposta impulsiva
 subplot(righe, colonne, 6);
 impulse(FDT); % Grafico della risposta impulsiva
-title('Risposta impulsiva');
+title('Comportamento di FDT1');
 grid on;
 
 % antitrasformata_fun = matlabFunction(antitrasformata);
@@ -77,7 +77,7 @@ risposta_gradino;
 subplot(righe,colonne,1);
 plot(t,risposta_gradino,'LineWidth',2);
 xlabel('tempo');ylabel('risposta');
-title('Risposta del sistema al gradino')
+title('Risposta del sistema al gradino FDT1')
 grid on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,7 +89,7 @@ subplot(righe,colonne,2);
 plot(t,risposta_rampa,'LineWidth', 2);
 xlabel('tempo');
 ylabel('risposta');
-title('Risposta del sistema ad una rampa');
+title('Risposta del sistema ad una rampa FDT1');
 grid on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,6 +117,8 @@ segnale_tot = segnale1 + segnale2;
 risposta_saturazione = lsim(FDT,segnale_tot,t);
 subplot(righe,colonne,4);
 plot(t,risposta_saturazione,"LineWidth",2);
+title('Risposta del sistema ad una saturazione FDT1');
+
 grid on;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
